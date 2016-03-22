@@ -1,0 +1,105 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="12.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProjectGuid>{203A0983-8572-4B28-9A65-591F5A35F038}</ProjectGuid>
+    <OutputType>Library</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>EPCManager.Domain</RootNamespace>
+    <AssemblyName>EPCManager.Domain</AssemblyName>
+    <TargetFrameworkVersion>v4.5.1</TargetFrameworkVersion>
+    <FileAlignment>512</FileAlignment>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\Release\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="System" />
+    <Reference Include="System.Core" />
+    <Reference Include="System.Xml.Linq" />
+    <Reference Include="System.Data.DataSetExtensions" />
+    <Reference Include="Microsoft.CSharp" />
+    <Reference Include="System.Data" />
+    <Reference Include="System.Xml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="Abstract\Common\ITryRelationshipRepository.cs" />
+    <Compile Include="Abstract\Common\IRelationshipRepository.cs" />
+    <Compile Include="Abstract\Common\IRelationshipTypeRepository.cs" />
+    <Compile Include="Abstract\Document\IDocumentCopyRepository.cs" />
+    <Compile Include="Abstract\Entities\IAssociableEntity.cs" />
+    <Compile Include="Abstract\Entities\ICopiableEntity.cs" />
+    <Compile Include="Abstract\Entities\ILifeCycleEntity.cs" />
+    <Compile Include="Abstract\Item\IItemRepository.cs" />
+    <Compile Include="Abstract\Models\IEntityList.cs" />
+    <Compile Include="Abstract\Operations\ICopyRepository.cs" />
+    <Compile Include="Abstract\Operations\ILifeCycleRepository.cs" />
+    <Compile Include="Abstract\Operations\ICheckOutRepository.cs" />
+    <Compile Include="Abstract\Common\IDomainRepository.cs" />
+    <Compile Include="Abstract\Common\IIdentifierRepository.cs" />
+    <Compile Include="Abstract\Common\IPeopleRepository.cs" />
+    <Compile Include="Abstract\Common\IClassRepository.cs" />
+    <Compile Include="Abstract\Common\IRepository.cs" />
+    <Compile Include="Abstract\Common\IPhaseRepository.cs" />
+    <Compile Include="Abstract\Common\IStatusRepository.cs" />
+    <Compile Include="Abstract\Document\IDocumentRepository.cs" />
+    <Compile Include="Abstract\Entities\ILockableEntity.cs" />
+    <Compile Include="Abstract\Entities\SPEntity.cs" />
+    <Compile Include="Abstract\Services\IRevisionProvider.cs" />
+    <Compile Include="Constants\OperationOptions.cs" />
+    <Compile Include="Entities\SPClass.cs" />
+    <Compile Include="Entities\AssociableEntity.cs" />
+    <Compile Include="Entities\SPItem.cs" />
+    <Compile Include="Entities\SPDocument.cs" />
+    <Compile Include="Entities\SPObjectTypes.cs" />
+    <Compile Include="Entities\SPPhase.cs" />
+    <Compile Include="Entities\TryRelationship.cs" />
+    <Compile Include="Entities\SPRelationship.cs" />
+    <Compile Include="Entities\SPRelationshipType.cs" />
+    <Compile Include="Entities\SPStatus.cs" />
+    <Compile Include="Entities\SPDomain.cs" />
+    <Compile Include="Entities\SPIdentifier.cs" />
+    <Compile Include="Entities\SPPeople.cs" />
+    <Compile Include="Exceptions\EPCManagerCopyException.cs" />
+    <Compile Include="Exceptions\EPCManagerLifeCycleException.cs" />
+    <Compile Include="Exceptions\EPCManagerCheckOutCheckInException.cs" />
+    <Compile Include="Exceptions\EPCManagerDBException.cs" />
+    <Compile Include="Exceptions\EPCManagerException.cs" />
+    <Compile Include="Models\SPClassList.cs" />
+    <Compile Include="Models\SPItemList.cs" />
+    <Compile Include="Models\SPDomainList.cs" />
+    <Compile Include="Models\SPIdentifierList.cs" />
+    <Compile Include="Models\SPPeopleList.cs" />
+    <Compile Include="Models\SPPhaseList.cs" />
+    <Compile Include="Models\SPRelationshipList.cs" />
+    <Compile Include="Models\SPRelationshipTypeList.cs" />
+    <Compile Include="Models\SPStatusList.cs" />
+    <Compile Include="Models\SPDocumentList.cs" />
+    <Compile Include="Properties\AssemblyInfo.cs" />
+  </ItemGroup>
+  <ItemGroup />
+  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+  <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
+       Other similar extension points exist, see Microsoft.Common.targets.
+  <Target Name="BeforeBuild">
+  </Target>
+  <Target Name="AfterBuild">
+  </Target>
+  -->
+</Project>

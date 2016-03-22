@@ -1,0 +1,12 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<hibernate-mapping xmlns="urn:nhibernate-mapping-2.2" assembly="EPCManager.Domain" namespace="EPCManager.Domain.Entities">
+  <class name="AssociableEntity" abstract="true">
+    <id name="OId" type="Int64" column="OID">
+    </id>
+    <property name="Revision"  type="String" column="REVISION" not-null="true" length="16"/>
+    <many-to-one name="Class" column="CLASSOID" class="SPClass" not-null="true" />
+    <property name="Description"  type="String" column="DESCRIPTION" not-null="false" length="256"/>
+    <many-to-one name="Status" column="STATUSOID" class="SPStatus" not-null="true" />
+    <many-to-one name="Identifier" column="IDENTIFIEROID" class="SPIdentifier" not-null="true" />
+  </class>
+</hibernate-mapping>

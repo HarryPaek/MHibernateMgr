@@ -1,0 +1,18 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<hibernate-mapping xmlns="urn:nhibernate-mapping-2.2" assembly="EPCManager.Domain" namespace="EPCManager.Domain.Entities">
+  <class name="SPClass" table="SPCLASS">
+    <id name="OId" type="Int64" column="OID">
+      <generator class="sequence">
+        <param name="sequence">SPCLASSSEQUENCE</param>
+      </generator>
+    </id>
+    <property name="Name"  type="String" column="NAME" not-null="true" length="64" unique="true"/>
+    <property name="Description"  type="String" column="DESCRIPTION" not-null="false" length="256"/>
+    <property name="ObjectType"  type="NHibernate.Type.EnumType`1[[EPCManager.Domain.Entities.SPObjectTypes, EPCManager.Domain]], NHibernate" column="OBJECTTYPEOID" not-null="true"/>
+    <many-to-one name="Parent" column="PARENTOID" class="SPClass" not-null="false" />
+    <property name="CreatedDate" type="DateTime" column="CREATEDDATE" not-null="true" />
+    <many-to-one name="CreatedBy" column="CREATEDBY" class="SPPeople" not-null="true" />
+    <property name="ModifiedDate" type="DateTime" column="MODIFIEDDATE" not-null="false" />
+    <many-to-one name="ModifiedBy" column="MODIFIEDBY" class="SPPeople" not-null="false"/>    
+  </class>
+</hibernate-mapping>

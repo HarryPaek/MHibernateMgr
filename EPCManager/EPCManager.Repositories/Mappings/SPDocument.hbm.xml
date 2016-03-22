@@ -1,0 +1,44 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<hibernate-mapping xmlns="urn:nhibernate-mapping-2.2" assembly="EPCManager.Domain" namespace="EPCManager.Domain.Entities">
+  <class name="SPDocument" table="SPDOCUMENT">
+    <id name="OId" type="Int64" column="OID">
+      <generator class="sequence">
+        <param name="sequence">SPDOCUMENTSEQUENCE</param>
+      </generator>
+    </id>
+    <property name="Revision"  type="String" column="REVISION" not-null="true" length="16"/>
+    <property name="RevisionSortSequence"  type="Int32" column="REVISIONSORTSEQ" not-null="true"/>
+    <many-to-one name="Class" column="CLASSOID" class="SPClass" not-null="true" />
+    <property name="Description"  type="String" column="DESCRIPTION" not-null="false" length="256"/>
+    <many-to-one name="Status" column="STATUSOID" class="SPStatus" not-null="true" />
+    <many-to-one name="Phase" column="PHASEOID" class="SPPhase" not-null="true" />
+    <many-to-one name="Identifier" column="IDENTIFIEROID" class="SPIdentifier" not-null="true" />
+    <property name="Template"  type="Char">
+      <column name="TEMPLATE" not-null="true" default="N"/>
+    </property>
+    <property name="CheckoutDate" type="DateTime" column="CHECKOUTDATE" not-null="false" />
+    <many-to-one name="CheckoutBy" column="CHECKOUTBY" class="SPPeople" not-null="false"/>
+    <property name="CreatedDate" type="DateTime" column="CREATEDDATE" not-null="true" />
+    <many-to-one name="CreatedBy" column="CREATEDBY" class="SPPeople" not-null="true" />
+    <property name="ModifiedDate" type="DateTime" column="MODIFIEDDATE" not-null="false" />
+    <many-to-one name="ModifiedBy" column="MODIFIEDBY" class="SPPeople" not-null="false"/>
+    <property name="CompletedDate" type="DateTime" column="COMPLETEDDATE" not-null="false" />
+    <many-to-one name="CompletedBy" column="COMPLETEDBY" class="SPPeople" not-null="false"/>
+
+    <!--<set name="FromRel" inverse="true" lazy="true" generic="true">
+      <key >
+        <column name="OBJECT1OID" />
+      </key>
+      <one-to-many class="SPRelationship"/>
+      <filter name="fileterRelationshipQueryByObjectType" condition="OBJECT1TYPEOID = :objectType" />
+    </set>
+
+    <set name="ToRel" inverse="true" lazy="true" generic="true">
+      <key>
+        <column name="OBJECT2OID" />
+      </key>
+      <one-to-many class="SPRelationship" />
+      <filter name="fileterRelationshipQueryByObjectType" condition="OBJECT2TYPEOID = :objectType" />
+    </set>-->
+   </class>
+</hibernate-mapping>

@@ -1,0 +1,131 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="12.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProjectGuid>{6E9F1C63-7529-4A56-80F8-0C9DF1A75222}</ProjectGuid>
+    <OutputType>Exe</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>TestConsoleApp</RootNamespace>
+    <AssemblyName>TestConsoleApp</AssemblyName>
+    <TargetFrameworkVersion>v4.5.1</TargetFrameworkVersion>
+    <FileAlignment>512</FileAlignment>
+    <AutoGenerateBindingRedirects>true</AutoGenerateBindingRedirects>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <PlatformTarget>AnyCPU</PlatformTarget>
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <PlatformTarget>AnyCPU</PlatformTarget>
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\Release\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="Iesi.Collections, Version=4.0.0.0, Culture=neutral, PublicKeyToken=aa95f207798dfdb4, processorArchitecture=MSIL">
+      <HintPath>..\packages\Iesi.Collections.4.0.1.4000\lib\net40\Iesi.Collections.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="log4net, Version=1.2.15.0, Culture=neutral, PublicKeyToken=669e0ddf0bb1aa2a, processorArchitecture=MSIL">
+      <HintPath>..\packages\log4net.2.0.5\lib\net45-full\log4net.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="NHibernate, Version=4.0.0.4000, Culture=neutral, PublicKeyToken=aa95f207798dfdb4, processorArchitecture=MSIL">
+      <HintPath>..\packages\NHibernate.4.0.4.4000\lib\net40\NHibernate.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="Oracle.ManagedDataAccess, Version=4.121.2.0, Culture=neutral, PublicKeyToken=89b483f429c47342, processorArchitecture=MSIL">
+      <HintPath>..\packages\Oracle.ManagedDataAccess.12.1.2400\lib\net40\Oracle.ManagedDataAccess.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="System" />
+    <Reference Include="System.Core" />
+    <Reference Include="System.Xml.Linq" />
+    <Reference Include="System.Data.DataSetExtensions" />
+    <Reference Include="Microsoft.CSharp" />
+    <Reference Include="System.Data" />
+    <Reference Include="System.Xml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="Abstract\AbstractEPCManagerTester.cs" />
+    <Compile Include="Abstract\IEPCManagerTester.cs" />
+    <Compile Include="Common\TryRelationshipTester.cs" />
+    <Compile Include="Common\RelationshipTester.cs" />
+    <Compile Include="Common\RelationshipTypeTester.cs" />
+    <Compile Include="Common\IdentifierTester.cs" />
+    <Compile Include="Document\DocumentCopyTester.cs" />
+    <Compile Include="Document\DocumentRelationshipTester.cs" />
+    <Compile Include="Document\SPDocumentListTester.cs" />
+    <Compile Include="Document\DocumentLifeCycelTester.cs" />
+    <Compile Include="Document\DocumentCheckOutCheckInTester.cs" />
+    <Compile Include="Document\DocumentCRUDTester.cs" />
+    <Compile Include="Helpers\ITesterDependencyBlock.cs" />
+    <Compile Include="Helpers\TryRelationshipPresenter.cs" />
+    <Compile Include="Helpers\SPRelationshipPresenter.cs" />
+    <Compile Include="Helpers\SPRelationshipTypePresenter.cs" />
+    <Compile Include="Helpers\SPItemPresenter.cs" />
+    <Compile Include="Helpers\SPDocumentPresenter.cs" />
+    <Compile Include="Helpers\SPEntityExtensions.cs" />
+    <Compile Include="Helpers\TesterDependencyBlock.cs" />
+    <Compile Include="Item\ItemRelationshipTester.cs" />
+    <Compile Include="Item\ItemCRUDTester.cs" />
+    <Compile Include="Item\SPItemListTester.cs" />
+    <Compile Include="Services\RevisionProviderTester.cs" />
+    <Compile Include="TestManager\CommonTestManager.cs" />
+    <Compile Include="Common\DomainTester.cs" />
+    <Compile Include="Common\ClassTester.cs" />
+    <Compile Include="Common\PhaseTester.cs" />
+    <Compile Include="Common\StatusTester.cs" />
+    <Compile Include="Common\PeopleTester.cs" />
+    <Compile Include="Helpers\ScreenOutputDecorator.cs" />
+    <Compile Include="Helpers\SPIdentifierPresenter.cs" />
+    <Compile Include="Helpers\SPDomainPresenter.cs" />
+    <Compile Include="Helpers\SPPhasePresenter.cs" />
+    <Compile Include="Helpers\SPClassPresenter.cs" />
+    <Compile Include="Helpers\SPStatusPresenter.cs" />
+    <Compile Include="Helpers\SPPeoplePresenter.cs" />
+    <Compile Include="Program.cs" />
+    <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="TestManager\ItemTestManager.cs" />
+    <Compile Include="TestManager\DocumentTestManager.cs" />
+    <Compile Include="TestManager\ServiceTestManager.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="App.config" />
+    <None Include="packages.config" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\EPCManager.Common\EPCManager.Common.csproj">
+      <Project>{43d0c354-cecd-46b8-8bcb-8b2fa88c7355}</Project>
+      <Name>EPCManager.Common</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\EPCManager.Domain\EPCManager.Domain.csproj">
+      <Project>{203a0983-8572-4b28-9a65-591f5a35f038}</Project>
+      <Name>EPCManager.Domain</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\EPCManager.Repositories\EPCManager.Repositories.csproj">
+      <Project>{ef1a69b4-b9dc-4e99-ab7e-98fd35f52e14}</Project>
+      <Name>EPCManager.Repositories</Name>
+    </ProjectReference>
+  </ItemGroup>
+  <ItemGroup />
+  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+  <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
+       Other similar extension points exist, see Microsoft.Common.targets.
+  <Target Name="BeforeBuild">
+  </Target>
+  <Target Name="AfterBuild">
+  </Target>
+  -->
+</Project>

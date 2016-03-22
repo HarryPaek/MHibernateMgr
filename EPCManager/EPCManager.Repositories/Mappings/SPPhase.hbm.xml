@@ -1,0 +1,15 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<hibernate-mapping xmlns="urn:nhibernate-mapping-2.2" assembly="EPCManager.Domain" namespace="EPCManager.Domain.Entities">
+  <class name="SPPhase" table="SPPHASE">
+    <id name="OId" type="Int64" column="OID">
+      <generator class="sequence">
+        <param name="sequence">SPPHASESEQUENCE</param>
+      </generator>
+    </id>
+    <property name="ObjectType"  type="NHibernate.Type.EnumType`1[[EPCManager.Domain.Entities.SPObjectTypes, EPCManager.Domain]], NHibernate" column="OBJECTTYPEOID" not-null="true"/>
+    <property name="Name"  type="String" column="NAME" not-null="true" length="64"/>
+    <property name="Description"  type="String" column="DESCRIPTION" not-null="true" length="256"/>
+    <property name="CreatedDate" type="DateTime" column="CREATEDDATE" not-null="true" />
+    <many-to-one name="CreatedBy" column="CREATEDBY" class="SPPeople" not-null="true" />
+  </class>
+</hibernate-mapping>

@@ -1,0 +1,151 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<hibernate-mapping xmlns="urn:nhibernate-mapping-2.2" assembly="EPCManager.Domain" namespace="EPCManager.Domain.Entities">
+  <class name="SPRelationship" table="SPRELATIONSHIP">
+    <id name="OId" type="Int64" column="OID">
+      <generator class="sequence">
+        <param name="sequence">SPRELATIONSHIPSEQUENCE</param>
+      </generator>
+    </id>
+    <property name="LeftObjectType"  type="NHibernate.Type.EnumType`1[[EPCManager.Domain.Entities.SPObjectTypes, EPCManager.Domain]], NHibernate" column="OBJECT1TYPEOID" not-null="true"/>
+    <property name="RightObjectType"  type="NHibernate.Type.EnumType`1[[EPCManager.Domain.Entities.SPObjectTypes, EPCManager.Domain]], NHibernate" column="OBJECT2TYPEOID" not-null="true"/>
+    <many-to-one name="RelType" column="RELTYPEOID" class="SPRelationshipType" not-null="true" />
+    <property name="CreatedDate" type="DateTime" column="CREATEDDATE" not-null="true" />
+    <many-to-one name="CreatedBy" column="CREATEDBY" class="SPPeople" not-null="true" />
+    <property name="IsReverse" type="YesNo" not-null="true" />
+
+    <property name="LeftObjectOId" type="Int64" column="OBJECT1OID" not-null="true" />
+    <property name="LeftRevision"  type="String" not-null="true" length="16"/>
+    <many-to-one name="LeftClass" class="SPClass" not-null="true" />
+    <property name="LeftDescription"  type="String" not-null="false" length="256"/>
+    <many-to-one name="LeftStatus" class="SPStatus" not-null="true" />
+    <many-to-one name="LeftIdentifier" class="SPIdentifier" not-null="true" />
+
+    <property name="RightObjectOId" type="Int64" column="OBJECT2OID" not-null="true" />
+    <property name="RightRevision"  type="String" not-null="true" length="16"/>
+    <many-to-one name="RightClass" class="SPClass" not-null="true" />
+    <property name="RightDescription"  type="String" not-null="false" length="256"/>
+    <many-to-one name="RightStatus" class="SPStatus" not-null="true" />
+    <many-to-one name="RightIdentifier" class="SPIdentifier" not-null="true" />
+    <loader query-ref="RelationshipLoader"/>
+  </class>
+  <sql-query name="RelationshipLoader">
+    <return alias="rel" class="SPRelationship"/>
+    SELECT rel.OID                 as {rel.OId},
+           rel.OBJECT1TYPEOID      as {rel.LeftObjectType},
+           rel.OBJECT2TYPEOID      as {rel.RightObjectType},
+           rel.RELTYPEOID          as {rel.RelType},
+           rel.CREATEDDATE         as {rel.CreatedDate},
+           rel.CREATEDBY           as {rel.CreatedBy},
+           rel.ISREVERSE           as {rel.IsReverse},
+           llink.OID               as {rel.LeftObjectOId},
+           llink.REVISION          as {rel.LeftRevision},
+           llink.CLASSOID          as {rel.LeftClass},         
+           llink.DESCRIPTION       as {rel.LeftDescription},
+           llink.STATUSOID         as {rel.LeftStatus},
+           llink.IDENTIFIEROID     as {rel.LeftIdentifier},
+           rlink.OID               as {rel.RightObjectOId},
+           rlink.REVISION          as {rel.RightRevision},
+           rlink.CLASSOID          as {rel.RightClass},         
+           rlink.DESCRIPTION       as {rel.RightDescription},
+           rlink.STATUSOID         as {rel.RightStatus},
+           rlink.IDENTIFIEROID     as {rel.RightIdentifier}
+    FROM
+    ( select docid.objecttypeoid, doc.oid, doc.classoid,
+             doc.revision, doc.description, doc.statusoid, doc.identifieroid
+        from spdocument            doc,
+             spidentifier          docid
+       where doc.identifieroid   = docid.oid
+      UNION ALL
+      select itemid.objecttypeoid, item.oid, item.classoid,
+             item.revision, item.description, item.statusoid, item.identifieroid
+        from spitem                item,
+             spidentifier          itemid
+       where item.identifieroid  = itemid.oid
+    ) llink,
+    ( select docid.objecttypeoid, doc.oid, doc.classoid,
+             doc.revision, doc.description, doc.statusoid, doc.identifieroid
+        from spdocument            doc,
+             spidentifier          docid
+       where doc.identifieroid   = docid.oid
+      UNION ALL
+      select itemid.objecttypeoid, item.oid, item.classoid,
+             item.revision, item.description, item.statusoid, item.identifieroid
+        from spitem                item,
+             spidentifier          itemid
+       where item.identifieroid  = itemid.oid
+    ) rlink,
+    ( select mrel.*, 'N' isReverse
+        from sprelationship        mrel
+       where mrel.oid            = :id
+    ) rel
+    WHERE rel.object1typeoid     = llink.objecttypeoid
+      AND rel.object1oid         = llink.oid
+      AND rel.object2typeoid     = rlink.objecttypeoid
+      AND rel.object2oid         = rlink.oid
+  </sql-query>
+  <sql-query name="RelationshipListLoaderWithObjectTypeAndSourceOId">
+    <return alias="rel" class="SPRelationship"/>
+    SELECT rel.OID                  as {rel.OId},
+           rel.OBJECT1TYPEOID       as {rel.LeftObjectType},
+           rel.OBJECT2TYPEOID       as {rel.RightObjectType},
+           rel.RELTYPEOID           as {rel.RelType},
+           rel.CREATEDDATE          as {rel.CreatedDate},
+           rel.CREATEDBY            as {rel.CreatedBy},
+           rel.ISREVERSE            as {rel.IsReverse},
+           llink.OID                as {rel.LeftObjectOId},
+           llink.REVISION           as {rel.LeftRevision},
+           llink.CLASSOID           as {rel.LeftClass},         
+           llink.DESCRIPTION        as {rel.LeftDescription},
+           llink.STATUSOID          as {rel.LeftStatus},
+           llink.IDENTIFIEROID      as {rel.LeftIdentifier},
+           rlink.OID                as {rel.RightObjectOId},
+           rlink.REVISION           as {rel.RightRevision},
+           rlink.CLASSOID           as {rel.RightClass},         
+           rlink.DESCRIPTION        as {rel.RightDescription},
+           rlink.STATUSOID          as {rel.RightStatus},
+           rlink.IDENTIFIEROID      as {rel.RightIdentifier}
+    FROM
+    ( select docid.objecttypeoid, doc.oid, doc.classoid,
+             doc.revision, doc.description, doc.statusoid, doc.identifieroid
+        from spdocument             doc,
+             spidentifier           docid
+       where doc.identifieroid    = docid.oid
+      UNION ALL
+      select itemid.objecttypeoid, item.oid, item.classoid,
+             item.revision, item.description, item.statusoid, item.identifieroid
+        from spitem                 item,
+             spidentifier           itemid
+       where item.identifieroid   = itemid.oid
+    ) llink,
+    ( select docid.objecttypeoid, doc.oid, doc.classoid,
+             doc.revision, doc.description, doc.statusoid, doc.identifieroid
+        from spdocument             doc,
+             spidentifier           docid
+       where doc.identifieroid    = docid.oid
+      UNION ALL
+      select itemid.objecttypeoid, item.oid, item.classoid,
+             item.revision, item.description, item.statusoid, item.identifieroid
+        from spitem                 item,
+             spidentifier           itemid
+       where item.identifieroid   = itemid.oid
+    ) rlink,
+    ( select mrel.*, 'Y' isReverse
+         from sprelationship mrel
+        where mrel.object2typeoid = :objectType
+          and mrel.object2oid     = :sourceOid
+       UNION ALL
+       select mrel.*, 'N' isReverse
+         from sprelationship mrel
+        where mrel.object1typeoid = :objectType
+          and mrel.object1oid     = :sourceOid
+    ) rel
+    WHERE rel.object1typeoid      = llink.objecttypeoid
+      AND rel.object1oid          = llink.oid
+      AND rel.object2typeoid      = rlink.objecttypeoid
+      AND rel.object2oid          = rlink.oid
+    ORDER BY rel.OID
+  </sql-query>
+  <filter-def name="fileterRelationshipQueryByObjectType">
+    <filter-param name="objectType" type="int"/>
+  </filter-def>
+</hibernate-mapping>
